@@ -10,14 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
+
+      # ⭐ ADD THIS STEP
+      - name: Give execute permission to mvnw
+        run: chmod +x mvnw
 
       - name: Build Backend
         run: ./mvnw clean install
