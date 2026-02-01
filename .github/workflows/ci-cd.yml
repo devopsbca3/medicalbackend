@@ -3,51 +3,21 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main      # replace with your branch if not main
-  pull_request:
-    branches:
       - main
 
 jobs:
   build-backend:
     runs-on: ubuntu-latest
+
     steps:
-      # Checkout repo
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      # Setup Java for Spring Boot
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
-      # Build backend
       - name: Build Backend
-        working-directory: ./backend   # ensure cd path is correct
         run: ./mvnw clean install
-
-  build-frontend:
-    runs-on: ubuntu-latest
-    needs: build-backend
-    steps:
-      # Checkout repo
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      # Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # Install frontend dependencies
-      - name: Install Dependencies
-        working-directory: ./frontend
-        run: npm ci       # cleaner than npm install for CI
-
-      # Build frontend
-      - name: Build Frontend
-        working-directory: ./frontend
-        run: npm run build
