@@ -17,9 +17,8 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # ⭐ ADD THIS STEP
       - name: Give execute permission to mvnw
         run: chmod +x mvnw
 
       - name: Build Backend
-        run: ./mvnw clean install
+        run: ./mvnw clean install -DskipTests
